@@ -24,7 +24,12 @@ add_action('in_admin_header', 'progresso_no_nags_noticies');
 function progresso_no_nags_noticies() {
     remove_action('admin_notices', 'bsf_notices', 1000);
     remove_action('network_admin_notices', 'bsf_notices', 1000);
-
-    // remove_all_actions('admin_notices');
-    // remove_all_actions('all_admin_notices');
 }
+
+// load the plugin update checker
+require __DIR__ . '/libraries/plugin-update-checker/plugin-update-checker.php';
+$myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+    'https://github.com/progressosrl/progresso-no-nags/',
+    __FILE__,
+    'progresso-no-nags-update'
+);
