@@ -1,0 +1,30 @@
+<?php
+/**
+ * Plugin Name: 		Progresso NO Nags
+ * Version:     		1.0.0
+ * Description:			Free WordPress plugin that removes some WP Nags
+ * Network:     		true
+
+ * Author:				Progresso srl
+ * Author URI:  		https://www.progresso.srl
+
+ * Requires at least:	4.9
+ * Tested up to:		5.2.2
+
+ * License:    			GPL-3.0+
+ * License URI:			http://www.gnu.org/licenses/gpl-3.0.txt
+
+ * Text Domain: 		progresso-no-nags
+ */
+
+// don't load the plugin file directly
+if (!defined('ABSPATH')) exit;
+
+add_action('in_admin_header', 'progresso_no_nags_noticies');
+function progresso_no_nags_noticies() {
+    remove_action('admin_notices', 'bsf_notices', 1000);
+    remove_action('network_admin_notices', 'bsf_notices', 1000);
+
+    // remove_all_actions('admin_notices');
+    // remove_all_actions('all_admin_notices');
+}
