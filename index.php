@@ -20,8 +20,6 @@
 // don't load the plugin file directly
 if (!defined('ABSPATH')) exit;
 
-require_once __DIR__ . '/libraries/tgmpa/tgm-init.php';
-
 add_action('in_admin_header', 'progresso_no_nags_noticies');
 function progresso_no_nags_noticies() {
     remove_action('admin_notices', 'bsf_notices', 1000);
@@ -29,17 +27,11 @@ function progresso_no_nags_noticies() {
 }
 
 // load the plugin update checker
-function autoupdater() {
-    $pluginUpdateChecker = PROGRESSO_FRAMEWORK_PATH . '/libraries/plugin-update-checker/v4p7/plugin-update-checker.php';
-    if (file_exists($pluginUpdateChecker)) {
-        require_once($pluginUpdateChecker);
-        Puc_v4p7_Factory::buildUpdateChecker(
-            'https://github.com/progressosrl/progresso-no-nags/',
-            __FILE__,
-            'progresso-no-nags-update'
-        );
-    }
+if (!class_exists('Puc_v4p7_Factory')) {
+    require_once(__DIR__ . '/libraries/plugin-update-checker/plugin-update-checker.php');
 }
-if (defined('PROGRESSO_FRAMEWORK_PATH')) {
-    autoupdater();
-}
+Puc_v4p7_Factory::buildUpdateChecker(
+    'https://github.com/progressosrl/progresso-no-nags/',
+    __FILE__,
+    'progresso-no-nags-update'
+);
