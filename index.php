@@ -22,8 +22,21 @@ if (!defined('ABSPATH')) exit;
 
 add_action('in_admin_header', 'progresso_no_nags_noticies');
 function progresso_no_nags_noticies() {
+    // NO RML (Real Media Library) noticies
     remove_action('admin_notices', 'bsf_notices', 1000);
     remove_action('network_admin_notices', 'bsf_notices', 1000);
+}
+
+add_action('admin_head', 'progresso_no_nags_licence_keys');
+function progresso_no_nags_licence_keys() {
+?>
+    <style type="text/css">
+        <?php // NO RML (Real Media Library) noticies ?>
+        .rml-update-notice {
+            display: none;
+        }
+    </style>
+<?php
 }
 
 // load the plugin update checker
